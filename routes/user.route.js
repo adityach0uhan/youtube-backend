@@ -1,5 +1,5 @@
 import express from "express";
-import {userInfo,updateUser} from '../controllers/user.controller.js'
+import {userInfo,updateUser,getUser,deleteUser,subscribe,unsubscribe,liked,disliked} from '../controllers/user.controller.js'
 const router = express.Router()
 
 router.get('/', userInfo)
