@@ -1,11 +1,23 @@
 import express from "express";
-import {userInfo,updateUser,getUser,deleteUser,subscribe,unsubscribe,liked,disliked} from '../controllers/user.controller.js'
+import {
+  userInfo,
+  updateUser,
+  getUser,
+  deleteUser,
+  subscribe,
+  unsubscribe,
+  liked,
+  disliked,
+} from "../controllers/user.controller.js";
+import { tokenVerification } from "../tokenVerification.js";
+
 const router = express.Router()
 
+//get user info
 router.get('/', userInfo)
 
 // update 
-router.put('/:id', updateUser);
+router.put("/:id",tokenVerification, updateUser);
 
 //get a user
 router.get('/find/:id',getUser)

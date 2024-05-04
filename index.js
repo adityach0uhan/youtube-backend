@@ -1,12 +1,12 @@
 import express from "express";
 import dotenv from "dotenv";
 import ConnectDatabase from "./DataBase/db.js";
+import cookieParser from "cookie-parser"; // Import cookie-parser middleware
 // importing routes
 import userRoute from "./routes/user.route.js";
 import commentRoute from "./routes/comment.route.js";
 import signupRoute from "./routes/signup.route.js";
 import loginRoute from './routes/login.route.js'
-
 const port = process.env.PORT;
 const app = express();
 dotenv.config();
@@ -14,6 +14,8 @@ dotenv.config();
 app.use(express.json())
 // Middleware to parse URL-encoded bodies
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser()); 
+
 
 
 app.use("/api/users", userRoute);

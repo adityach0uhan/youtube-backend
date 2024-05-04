@@ -12,7 +12,7 @@ const loginController = async (req, res) => {
     const JWTtoken = await jwt.sign({ id: userdetails._id },process.env.JWT_SECRET);
     const { password, ...otherDetails } = userdetails._doc;
     res
-      .cookie("access_token", JWTtoken, {
+      .cookie("token", JWTtoken, {
         httpOnly: true,
       })
       .status(200)

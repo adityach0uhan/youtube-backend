@@ -5,6 +5,7 @@ export const userInfo = (req, res) => {
 
 export const updateUser = (req, res, next) => {
   res.send("updateUser user");
+  next()
 };
 
 export const getUser = (req, res, next) => {
