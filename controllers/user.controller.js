@@ -19,7 +19,11 @@ export const updateUser = async (req, res, next) => {
       next("Database Error", 400, "Bad request");
     }
   } else {
-    return next("Authentication", 403, "Unauthorized access");
+    return next(
+      "Authentication",
+      403,
+      "Unauthorized access you can update only your account"
+    );
   }
 };
 
@@ -27,8 +31,21 @@ export const getUser = (req, res, next) => {
   res.send("getuser user");
 };
 
-export const deleteUser = (req, res, next) => {
-  res.send("delet user");
+export const deleteUser = async (req, res, next) => {
+  if (req.params.id == req.user.id) {
+    try {
+      await userModel.findByIdAndDelete(req.params.id);
+      res.status(200).json("user deleted successfully");
+    } catch (error) {
+      next("Database Error", 400, "Bad request");
+    }
+  } else {
+    return next(
+      "Authentication",
+      403,
+      "Unauthorized access you can delete only your account"
+    );
+  }
 };
 
 export const subscribe = (req, res, next) => {
