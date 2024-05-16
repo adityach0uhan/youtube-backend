@@ -89,8 +89,18 @@ export const subscribe = async (req, res, next) => {
 };
 
 export const unsubscribe = async (req, res, next) => {
-  try {
-  } catch (error) {}
+ try {
+  await userModel.findByIdAndUpdate(req.user.id, {
+    $pull: { subscribedChannels: req.params.id },
+  });
+    await userModel.findByIdAndUpdate(req.params.id, {
+      $inc: { subcribers :-1},
+    });
+
+    res.send("Subscribed Successfully")
+  } catch (error) {
+    res.send(error)
+  }
 };
 
 export const liked = async (req, res, next) => {
