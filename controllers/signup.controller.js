@@ -12,7 +12,7 @@ const signupController = async (req, res) => {
       email,
       password:hashedPassword,
     });
-    res.send(req.body);
+    res.status(200).send("User Created Successfully");
   } catch (error) {
     console.log("Error in Signup Controller", error);
   }

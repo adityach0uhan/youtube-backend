@@ -8,6 +8,7 @@ import {
   unsubscribe,
   liked,
   disliked,
+  getComments,
 } from "../controllers/user.controller.js";
 import { tokenVerification } from "../tokenVerification.js";
 
@@ -26,7 +27,7 @@ router.get("/find/:id", getUser);
 router.delete("/:id", tokenVerification, deleteUser);
 
 //subscribe
-router.put("/subscribe/:id", subscribe);
+router.put("/subscribe/:id",tokenVerification, subscribe);
 
 //unsubscribe
 router.put("/unsubscribe/:id", unsubscribe);
@@ -36,5 +37,9 @@ router.put("/like/:VideoId", liked);
 
 //dislike
 router.put("/dislike/:VideoId", disliked);
+
+//comment
+router.get("/comments/:VideoId", getComments);
+
 
 export default router;

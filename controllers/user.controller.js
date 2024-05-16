@@ -1,9 +1,16 @@
 import userModel from "../models/User.model.js";
 
-export const userInfo = (req, res) => {
-  const requestBody = req.body;
-  console.log("get User route ");
-};
+export const userInfo =async (req, res) => {
+ try {
+    const user = await userModel.findById(req.params.id);
+
+    if (user) {
+      return res.status(200).json(user)
+    }
+    res.send("No User Found")
+  } catch (error) {
+    res.send(error.message)
+  }};
 
 // update user controller
 export const updateUser = async (req, res, next) => {
@@ -27,8 +34,26 @@ export const updateUser = async (req, res, next) => {
   }
 };
 
-export const getUser = (req, res, next) => {
-  res.send("getuser user");
+export const getUser =async (req, res, next) => {
+
+  try {
+    const user = await userModel.findById(req.params.id);
+
+    if (user) {
+      return res.status(200).json(user)
+    }
+    res.send("No User Found")
+  } catch (error) {
+    res.send(error.message)
+  }
+
+};
+
+export const getComments = async(req, res, next) => {
+
+  const comments = await userModel.findById(req.params.VideoId);
+  console.log(comments)
+
 };
 
 export const deleteUser = async (req, res, next) => {
@@ -48,18 +73,32 @@ export const deleteUser = async (req, res, next) => {
   }
 };
 
-export const subscribe = (req, res, next) => {
-  res.send("subscribe user");
+export const subscribe = async (req, res, next) => {
+  try {
+  await userModel.findByIdAndUpdate(req.user.id, {
+    $push: { subscribedChannels: req.params.id },
+  });
+    await userModel.findByIdAndUpdate(req.params.id, {
+      $inc: { subcribers :1},
+    });
+
+    res.send("Subscribed Successfully")
+  } catch (error) {
+    res.send(error)
+  }
 };
 
-export const unsubscribe = (req, res, next) => {
-  res.send("unsubscribe user");
+export const unsubscribe = async (req, res, next) => {
+  try {
+  } catch (error) {}
 };
 
-export const liked = (req, res, next) => {
-  res.send("like ");
+export const liked = async (req, res, next) => {
+  try {
+  } catch (error) {}
 };
 
-export const disliked = (req, res, next) => {
-  res.send("dislike ");
+export const disliked = async (req, res, next) => {
+  try {
+  } catch (error) {}
 };
