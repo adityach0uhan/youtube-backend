@@ -30,7 +30,7 @@ router.delete("/:id", tokenVerification, deleteUser);
 router.put("/subscribe/:id",tokenVerification, subscribe);
 
 //unsubscribe
-router.put("/unsubscribe/:id",tokenVerification,unsubscribe);
+router.put("/unsubscribe/:id",tokenVerification, unsubscribe);
 
 //like
 router.put("/like/:VideoId", liked);
