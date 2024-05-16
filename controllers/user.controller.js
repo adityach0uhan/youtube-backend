@@ -97,7 +97,7 @@ export const unsubscribe = async (req, res, next) => {
       $inc: { subcribers :-1},
     });
 
-    res.send("Subscribed Successfully")
+    res.send("UnSubscribed Successfully")
   } catch (error) {
     res.send(error)
   }
