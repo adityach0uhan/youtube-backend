@@ -1,5 +1,4 @@
-import userModel from "../models/User.model.js";
-
+import videoModel from "../models/Video.model.js";
 export const getVideo = async (req, res, next) => {
   try {
   } catch (error) {
@@ -9,6 +8,9 @@ export const getVideo = async (req, res, next) => {
 
 export const addVideo = async (req, res, next) => {
   try {
+    const newVideo = new videoModel({ userId: req.user.id, ...req.body });
+    const saveVideo = await newVideo.save();
+    res.status(200).json(saveVideo)
   } catch (error) {
     console.log(error);
   }

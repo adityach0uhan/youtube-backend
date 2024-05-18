@@ -9,8 +9,9 @@ export const userInfo =async (req, res) => {
     }
     res.send("No User Found")
   } catch (error) {
-    res.send(error.message)
-  }};
+    next(error)
+  }
+};
 
 // update user controller
 export const updateUser = async (req, res, next) => {
@@ -23,7 +24,7 @@ export const updateUser = async (req, res, next) => {
       );
       res.status(200).json(updated);
     } catch (error) {
-      next("Database Error", 400, "Bad request");
+    next(error);
     }
   } else {
     return next(
@@ -44,7 +45,7 @@ export const getUser =async (req, res, next) => {
     }
     res.send("No User Found")
   } catch (error) {
-    res.send(error.message)
+    next(error);
   }
 
 };

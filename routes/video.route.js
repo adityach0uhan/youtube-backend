@@ -1,4 +1,4 @@
-
+import express from 'express'
 import { tokenVerification } from "../tokenVerification.js";
 import {
   getVideo,
@@ -6,7 +6,7 @@ import {
   updateVideo,
   deleteVideo,
 } from "../controllers/video.controller.js";
-
+const router = express.Router();
 router.get("/", getVideo);
 router.post("/:id", tokenVerification, addVideo);
 router.put("/:id", tokenVerification, updateVideo);

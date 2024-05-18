@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-
 const VideoSchema = new mongoose.Schema(
   {
     userId: {
@@ -39,6 +38,7 @@ const VideoSchema = new mongoose.Schema(
       required: true,
     },
   },
-  { timestamps: true }
+  { timestamps: true } 
 );
-export default mongoose.model("Video", VideoSchema);
+const videoModel = mongoose.model("Video", VideoSchema);
+export default videoModel
