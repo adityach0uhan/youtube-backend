@@ -7,6 +7,19 @@ export const getVideo = async (req, res, next) => {
   }
 };
 
+export const getTrendingVideo = async (req, res, next) => {
+  try {
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getRandomVideo = async (req, res, next) => {
+  try {
+  } catch (error) {
+    console.log(error);
+  }
+};
 export const addVideo = async (req, res, next) => {
   try {
     const newVideo = new videoModel({ userId: req.user.id, ...req.body });
@@ -26,12 +39,12 @@ export const deleteVideo = async (req, res, next) => {
 
 export const updateVideo = async (req, res, next) => {
   try {
-    const video = videoModel.findById(req.params.id);
+    const video = await videoModel.findById(req.params.id);
     if (!video) {
       return next(createError("Video", 404, "Video Not Found"));
     }
     if (video.userId === req.user.id) {
-      const updatedVideo = videoModel.findByIdAndUpdate(
+      const updatedVideo =await videoModel.findByIdAndUpdate(
         req.params.id,
         {
           $set: req.body,
@@ -41,6 +54,9 @@ export const updateVideo = async (req, res, next) => {
         }
       );
       res.status(200).json(updatedVideo)
+    } else {
+            return next(createError("Video", 404, "Video Not Found"));
+
     }
   } catch (error) {
 next(error)
