@@ -15,6 +15,8 @@ router.put("/:id", tokenVerification, updateVideo);
 router.delete("/:id", tokenVerification, deleteVideo);
 router.get("/trending", getTreadingVideos)
 router.get("/random", getRandomVideos);
+router.put("/views/:id", increaseViews)
+
 
 
 export default router;

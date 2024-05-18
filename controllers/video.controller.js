@@ -32,8 +32,18 @@ export const addVideo = async (req, res, next) => {
 
 export const deleteVideo = async (req, res, next) => {
   try {
+    const video = await videoModel.findById(req.params.id);
+    if (!video) {
+      return next(createError("Video", 404, "Video Not Found"));
+    }
+    if (video.userId === req.user.id) {
+      await videoModel.findByIdAndDelete(req.params.id);
+      res.status(200).send("Video Deleted Successfully")
+    } else {
+      return next(createError("Video", 404, "You Can delete Only Your video"));
+    }
   } catch (error) {
-    console.log(error);
+    next(error);
   }
 };
 
@@ -44,7 +54,7 @@ export const updateVideo = async (req, res, next) => {
       return next(createError("Video", 404, "Video Not Found"));
     }
     if (video.userId === req.user.id) {
-      const updatedVideo =await videoModel.findByIdAndUpdate(
+      const updatedVideo = await videoModel.findByIdAndUpdate(
         req.params.id,
         {
           $set: req.body,
@@ -53,12 +63,11 @@ export const updateVideo = async (req, res, next) => {
           new: true,
         }
       );
-      res.status(200).json(updatedVideo)
+      res.status(200).json(updatedVideo);
     } else {
-            return next(createError("Video", 404, "Video Not Found"));
-
+      return next(createError("Video", 404, "You Can update Only Your video"));
     }
   } catch (error) {
-next(error)
+    next(error);
   }
 };
