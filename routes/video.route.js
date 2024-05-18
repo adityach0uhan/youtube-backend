@@ -8,8 +8,8 @@ import {
 } from "../controllers/video.controller.js";
 
 router.get("/", getVideo);
-router.post("/", tokenVerification, addVideo);
-router.put("/", tokenVerification, updateVideo);
-router.delete("/", tokenVerification, deleteVideo);
+router.post("/:id", tokenVerification, addVideo);
+router.put("/:id", tokenVerification, updateVideo);
+router.delete("/:id", tokenVerification, deleteVideo);
 
 export default router;
