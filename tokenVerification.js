@@ -5,7 +5,7 @@ export const tokenVerification = async (req, res, next) => {
     if (!token) {
         return next(
           createError(
-            "Authentication Error",
+            "Token Authentication Error",
             403,
             "Token not found"
           )
@@ -17,7 +17,7 @@ export const tokenVerification = async (req, res, next) => {
                createError(
                  "Authentication Error",
                  401,
-                 "Invalid Token or Unauthorized  "
+                 "Invalid Token or Unauthorized Access "
                )
              );
         }
