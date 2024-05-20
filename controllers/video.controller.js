@@ -77,7 +77,11 @@ export const updateVideo = async (req, res, next) => {
 
 export const increaseViews = async (req, res, next) => {
   try {
+    videoModel.findByIdAndUpdate(req.params.id, {
+      $inc: { views: 1 },
+    });
+    res.status(200).send("Increased View")
   } catch (error) {
-    console.log(error);
+    next(error);
   }
 };
