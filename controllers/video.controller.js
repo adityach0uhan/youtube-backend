@@ -2,8 +2,10 @@ import videoModel from "../models/Video.model.js";
 import { createError } from "../errors.js";
 export const getVideo = async (req, res, next) => {
   try {
+    const video = await videoModel.findById(req.params.id);
+    res.status(200).json(video);
   } catch (error) {
-    console.log(error);
+    next(error);
   }
 };
 
@@ -16,6 +18,7 @@ export const getTrendingVideo = async (req, res, next) => {
 
 export const getRandomVideo = async (req, res, next) => {
   try {
+    const randomvideo = await videoModel.find({});
   } catch (error) {
     console.log(error);
   }
@@ -38,7 +41,7 @@ export const deleteVideo = async (req, res, next) => {
     }
     if (video.userId === req.user.id) {
       await videoModel.findByIdAndDelete(req.params.id);
-      res.status(200).send("Video Deleted Successfully")
+      res.status(200).send("Video Deleted Successfully");
     } else {
       return next(createError("Video", 404, "You Can delete Only Your video"));
     }
@@ -69,5 +72,12 @@ export const updateVideo = async (req, res, next) => {
     }
   } catch (error) {
     next(error);
+  }
+};
+
+export const increaseViews = async (req, res, next) => {
+  try {
+  } catch (error) {
+    console.log(error);
   }
 };

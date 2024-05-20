@@ -7,6 +7,7 @@ import {
   deleteVideo,
   getTreadingVideos,
   getRandomVideos,
+  increaseViews,
 } from "../controllers/video.controller.js";
 const router = express.Router();
 router.get("/", getVideo);
