@@ -18,7 +18,8 @@ export const getTrendingVideo = async (req, res, next) => {
 
 export const getRandomVideo = async (req, res, next) => {
   try {
-    const randomvideo = await videoModel.find({});
+    const randomvideo = await videoModel.aggregate([{ $sample: { size: 40 } }])
+    res.status(200).json(randomvideo)
   } catch (error) {
     console.log(error);
   }
@@ -77,7 +78,7 @@ export const updateVideo = async (req, res, next) => {
 
 export const increaseViews = async (req, res, next) => {
   try {
-    videoModel.findByIdAndUpdate(req.params.id, {
+    await videoModel.findByIdAndUpdate(req.params.id, {
       $inc: { views: 1 },
     });
     res.status(200).send("Increased View")
