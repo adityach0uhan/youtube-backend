@@ -1,5 +1,7 @@
 import videoModel from "../models/Video.model.js";
 import { createError } from "../errors.js";
+import userModel from "../models/User.model.js";
+
 export const getVideo = async (req, res, next) => {
   try {
     const video = await videoModel.findById(req.params.id);
@@ -84,6 +86,20 @@ export const increaseViews = async (req, res, next) => {
       $inc: { views: 1 },
     });
     res.status(200).send("Increased View");
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getSubscribedVideos = async (req, res, next) => {
+  try {
+    const channels = await userModel.findById(req.user.id);
+    const channellist = channels.subscribedChannels;
+    const list = Promise.all(
+      channellist.map((channelId) => {
+        return videoModel.find({ userId: channelId });
+      })
+    );
   } catch (error) {
     next(error);
   }
