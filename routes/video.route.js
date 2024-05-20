@@ -17,6 +17,7 @@ router.delete("/:id", tokenVerification, deleteVideo);
 router.get("/trending", getTreadingVideos)
 router.get("/random", getRandomVideos);
 router.put("/views/:id", increaseViews)
+router.get("/subscribed",tokenVerification,getSubscribedVideos)
 
 
 

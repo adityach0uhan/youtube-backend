@@ -11,15 +11,17 @@ export const getVideo = async (req, res, next) => {
 
 export const getTrendingVideo = async (req, res, next) => {
   try {
+    const trendingVideos = await videoModel.find().sort({ views: -1 });
+    res.status(200).json(trendingVideos);
   } catch (error) {
-    console.log(error);
+    next(error);
   }
 };
 
 export const getRandomVideo = async (req, res, next) => {
   try {
-    const randomvideo = await videoModel.aggregate([{ $sample: { size: 40 } }])
-    res.status(200).json(randomvideo)
+    const randomvideo = await videoModel.aggregate([{ $sample: { size: 40 } }]);
+    res.status(200).json(randomvideo);
   } catch (error) {
     console.log(error);
   }
@@ -81,7 +83,7 @@ export const increaseViews = async (req, res, next) => {
     await videoModel.findByIdAndUpdate(req.params.id, {
       $inc: { views: 1 },
     });
-    res.status(200).send("Increased View")
+    res.status(200).send("Increased View");
   } catch (error) {
     next(error);
   }
