@@ -11,7 +11,7 @@ export const getVideo = async (req, res, next) => {
   }
 };
 
-export const getTrendingVideo = async (req, res, next) => {
+export const getTreadingVideos = async (req, res, next) => {
   try {
     const trendingVideos = await videoModel.find().sort({ views: -1 });
     res.status(200).json(trendingVideos);
@@ -20,7 +20,7 @@ export const getTrendingVideo = async (req, res, next) => {
   }
 };
 
-export const getRandomVideo = async (req, res, next) => {
+export const getRandomVideos = async (req, res, next) => {
   try {
     const randomvideo = await videoModel.aggregate([{ $sample: { size: 40 } }]);
     res.status(200).json(randomvideo);
@@ -28,6 +28,7 @@ export const getRandomVideo = async (req, res, next) => {
     console.log(error);
   }
 };
+
 export const addVideo = async (req, res, next) => {
   try {
     const newVideo = new videoModel({ userId: req.user.id, ...req.body });

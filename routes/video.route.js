@@ -8,6 +8,7 @@ import {
   getTreadingVideos,
   getRandomVideos,
   increaseViews,
+  getSubscribedVideos,
 } from "../controllers/video.controller.js";
 const router = express.Router();
 router.get("/", getVideo);
@@ -18,7 +19,6 @@ router.get("/trending", getTreadingVideos)
 router.get("/random", getRandomVideos);
 router.put("/views/:id", increaseViews)
 router.get("/subscribed",tokenVerification,getSubscribedVideos)
-
 
 
 export default router;
