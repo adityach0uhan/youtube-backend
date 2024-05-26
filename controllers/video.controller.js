@@ -94,14 +94,21 @@ export const increaseViews = async (req, res, next) => {
 
 export const getSubscribedVideos = async (req, res, next) => {
   try {
-    const channels = await userModel.findById(req.user.id);
-    const channellist = channels.subscribedChannels;
-    const list = Promise.all(
-      channellist.map((channelId) => {
-        return videoModel.find({ userId: channelId });
-      })
+    const user = await userModel.findById(req.user.id);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const channellist = user.subscribedChannels;
+    const videoPromises = channellist.map((channelId) =>
+      videoModel.find({ userId: channelId }).exec()
     );
+    const videos = await Promise.all(videoPromises);
+    const flatList = videos.flat(); // Flatten the list of arrays
+
+    res.json(flatList);
   } catch (error) {
     next(error);
   }
 };
+
