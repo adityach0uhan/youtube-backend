@@ -11,7 +11,7 @@ import {
   getSubscribedVideos,
 } from "../controllers/video.controller.js";
 const router = express.Router();
-router.get("/", getVideo);
+router.get("/find/:id", getVideo);
 router.post("/:id", tokenVerification, addVideo);
 router.put("/:id", tokenVerification, updateVideo);
 router.delete("/:id", tokenVerification, deleteVideo);
