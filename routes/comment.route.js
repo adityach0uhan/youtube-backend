@@ -1,7 +1,14 @@
 import express from "express";
-import commentController from "../controllers/comment.controller.js";
+import {
+  getComment,
+  addComment,
+  deleteComment,
+} from "../controllers/comment.controller.js";
+import { tokenVerification } from "../tokenVerification.js";
 const router = express.Router();
 
-router.get("/", commentController);
+router.get("/", getComment);
+router.post("/", tokenVerification, addComment);
+router.delete("/", tokenVerification, deleteComment);
 
 export default router;
