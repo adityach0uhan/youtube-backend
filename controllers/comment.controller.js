@@ -2,8 +2,8 @@ import commentsModel from "../models/Comments.model";
 import videoModel from "../models/Video.model";
 export const getComment = async (req, res, next) => {
   try {
-    const comments = await commentsModel.find();
-    res.status(200);
+    const comments = await commentsModel.find({ videoId: req.params.videoId });
+    res.status(200).json(comments);
   } catch (error) {
     next(error);
   }
