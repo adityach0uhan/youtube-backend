@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-
 const CommentsSchema = new mongoose.Schema({
   videoId: {
     type: String,
@@ -15,4 +14,5 @@ const CommentsSchema = new mongoose.Schema({
   },
 },{timestamps:true});
 
-export default mongoose.model("Comments",CommentsSchema)
+const commentsModel = mongoose.model("Comments", CommentsSchema)
+export default commentsModel
