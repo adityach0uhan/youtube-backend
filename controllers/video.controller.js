@@ -125,8 +125,11 @@ export const getVideosByTag = async (req, res, next) => {
 export const getVideosBySearch = async (req, res, next) => {
   const search = req.query.search;
   try {
-    const video = await videoModel.find({title:{$regex:search ,$option:"i"}}).limit(40)
+    const videos = await videoModel
+      .find({ title: { $regex: search, $options: "i" } })
+      .limit(40);
+    res.status(200).json(videos);
   } catch (error) {
-    next(error)
+    next(error);
   }
-}
+};
