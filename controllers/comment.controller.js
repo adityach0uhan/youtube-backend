@@ -1,5 +1,5 @@
-import commentsModel from "../models/Comments.model";
-import videoModel from "../models/Video.model";
+import commentsModel from '../models/Comments.model.js'
+import videoModel from "../models/Video.model.js";
 export const getComment = async (req, res, next) => {
   try {
     const comments = await commentsModel.find({ videoId: req.params.videoId });
