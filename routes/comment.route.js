@@ -7,8 +7,8 @@ import {
 import { tokenVerification } from "../tokenVerification.js";
 const router = express.Router();
 
-router.get("/", getComment);
+router.get("/:videoId", getComment);
 router.post("/", tokenVerification, addComment);
-router.delete("/:videoId", tokenVerification, deleteComment);
+router.delete("/:id", tokenVerification, deleteComment);
 
 export default router;

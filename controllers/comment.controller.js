@@ -22,13 +22,16 @@ export const addComment = async (req, res, next) => {
 export const deleteComment = async (req, res, next) => {
   try {
     const comment = await commentsModel.findById(req.params.id);
+    console.log("Comment Info :", comment)
+    
     const video = await videoModel.findById(req.params.id);
-    if (req.params.id === comment.userId || req.params.id === video.userId) {
-      await commentsModel.findByIdAndDelete(req.params.id);
-      res.status(200).json("Comment Deleted ")
-    } else {
-      createError("Authentication Error",403,"You can delete only your comment")
-    }
+    console.log("Video Info",video)
+    // if (req.params.id === comment.userId || req.params.id === video.userId) {
+    //   await commentsModel.findByIdAndDelete(req.params.id);
+    //   res.status(200).json("Comment Deleted ")
+    // } else {
+    //   createError("Authentication Error",403,"You can delete only your comment")
+    // }
   } catch (error) {
     next(error);
   }
