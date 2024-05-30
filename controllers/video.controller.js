@@ -155,6 +155,20 @@ export const likeVideo = async (req, res, next) => {
 }
 
 export const dislikeVideo = async (req, res, next) => {
-  try {
-  } catch (error) {}
+const userid = req.user.id;
+try {
+  const video = await videoModel.findByIdAndUpdate(
+    req.params.videoId,
+    {
+      $addToSet: { dislikes: userid },
+      $pull: { likes: userid },
+    },
+    {
+      new: true,
+    }
+  );
+  res.status(200).json("DisLiked video", video);
+} catch (error) {
+  next(error);
+}
 };
