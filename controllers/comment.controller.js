@@ -1,5 +1,6 @@
 import commentsModel from '../models/Comments.model.js'
 import videoModel from "../models/Video.model.js";
+import { createError } from "../errors.js";
 export const getComment = async (req, res, next) => {
   try {
     const comments = await commentsModel.find({ videoId: req.params.videoId });
@@ -21,17 +22,14 @@ export const addComment = async (req, res, next) => {
 
 export const deleteComment = async (req, res, next) => {
   try {
-    const comment = await commentsModel.findById(req.params.id);
-    console.log("Comment Info :", comment)
-    
-    const video = await videoModel.findById(req.params.id);
-    console.log("Video Info",video)
-    // if (req.params.id === comment.userId || req.params.id === video.userId) {
-    //   await commentsModel.findByIdAndDelete(req.params.id);
-    //   res.status(200).json("Comment Deleted ")
-    // } else {
-    //   createError("Authentication Error",403,"You can delete only your comment")
-    // }
+    const comment = await commentsModel.findById(req.params.id);    
+    const video = await videoModel.findById(comment.videoId);
+    if (req.user.id === comment.userId || req.user.id === video.userId) {
+      await commentsModel.findByIdAndDelete(req.params.id);
+      res.status(200).json("Comment Deleted ")
+    } else {
+      res.json("You can delete only your comment or comment on your videos")
+    }
   } catch (error) {
     next(error);
   }
