@@ -26,8 +26,8 @@ router.put("/views/:id", increaseViews);
 router.get("/subscribed", tokenVerification, getSubscribedVideos);
 router.get("/tags", getVideosByTag);
 router.get("/search", getVideosBySearch);
-router.get("/like/:videoId", tokenVerification, likeVideo);
-router.get("/dislike/:videoId", tokenVerification, dislikeVideo);
+router.post("/like/:videoId", tokenVerification, likeVideo);
+router.post("/dislike/:videoId", tokenVerification, dislikeVideo);
 
 
 export default router;
