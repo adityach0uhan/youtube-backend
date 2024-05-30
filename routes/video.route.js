@@ -11,6 +11,8 @@ import {
   getSubscribedVideos,
   getVideosByTag,
   getVideosBySearch,
+  likeVideo,
+  dislikeVideo,
 } from "../controllers/video.controller.js";
 const router = express.Router();
 
@@ -23,6 +25,9 @@ router.get("/random", getRandomVideos);
 router.put("/views/:id", increaseViews);
 router.get("/subscribed", tokenVerification, getSubscribedVideos);
 router.get("/tags", getVideosByTag);
-router.get("/search",getVideosBySearch)
+router.get("/search", getVideosBySearch);
+router.get("/like", tokenVerification, likeVideo);
+router.get("/dislike", tokenVerification, dislikeVideo);
+
 
 export default router;
